@@ -1,0 +1,38 @@
+#Web Scraping of Box office Top Lifetime Grosses using Python(BeautifulSoup and request) 
+from bs4 import BeautifulSoup
+import requests
+
+url = "https://www.boxofficemojo.com/chart/top_lifetime_gross/?area=XWW"
+
+page = requests.get(url)
+
+soup = BeautifulSoup(page.text, "lxml")
+table = soup.find("table")
+
+sola = table.find("tr")
+
+kan = sola.find_all("th")
+
+column_data = sola.find_all("span")
+
+best = [movies.text.strip() for movies in column_data]
+
+yin = table.find_all("td")
+
+import pandas as dp
+df = dp.DataFrame(columns = best)
+
+yin = table.find_all("tr")
+
+best2 = [movies.text.strip() for movies in yin]
+
+for row in yin[1:]:
+    row_data = row.find_all("td")
+    individual_row_data = [data.text.strip() for data in row_data]
+    
+
+    lenght = len(df)
+    df.loc[lenght] = individual_row_data
+    print(df)
+
+#df.to_csv(r"C:\Users\Kanyinsola\Documents\Excel\Movies.csv", index = False)

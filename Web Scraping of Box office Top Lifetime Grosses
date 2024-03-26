@@ -35,4 +35,4 @@ for row in yin[1:]:
     df.loc[lenght] = individual_row_data
     print(df)
 
-#df.to_csv(r"C:\Users\Kanyinsola\Documents\Excel\Movies.csv", index = False)
+
